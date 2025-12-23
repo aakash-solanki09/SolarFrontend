@@ -1,5 +1,6 @@
 
 import SEO from '../components/SEO';
+import TrustedPartners from '../components/TrustedPartners';
 
 const About = () => {
     return (
@@ -65,6 +66,9 @@ const About = () => {
                     </div>
                 </div>
 
+                {/* Trusted Partners Section */}
+                <TrustedPartners />
+
                 {/* Management Section */}
                 <div className="mb-24 animate-on-scroll">
                     <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Meet Our Leadership</h2>
@@ -98,6 +102,8 @@ const About = () => {
                         </div>
                     </div>
                 </div>
+
+
 
                 <div className="bg-primary-900 text-black rounded-3xl shadow-xl p-8 md:p-16 text-center animate-on-scroll relative overflow-hidden mb-20">
                      <div className="absolute top-0 right-0 w-64 h-64 bg-solar-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 transform translate-x-1/2 -translate-y-1/2"></div>

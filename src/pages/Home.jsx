@@ -8,6 +8,7 @@ import homeBg from '../assets/homeBg.avif';
 import Contact from './Contact';
 
 import HeroImageSlider from '../components/HeroImageSlider';
+import TrustedPartners from '../components/TrustedPartners';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -140,20 +141,7 @@ const Home = () => {
             </section>
 
             {/* Brands Section */}
-            <section className="py-16 bg-white animate-on-scroll">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">Trusted Brands & Partners</h2>
-                    <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-80 hover:opacity-100 transition-all duration-500">
-                        {/* Validated Partner Names */}
-                        <span className="text-2xl font-bold text-gray-500 hover:text-primary-600 transition-colors cursor-default">TATA Power Solar</span>
-                        <span className="text-2xl font-bold text-gray-500 hover:text-primary-600 transition-colors cursor-default">WAAREE</span>
-                        <span className="text-2xl font-bold text-gray-500 hover:text-primary-600 transition-colors cursor-default">Adani Solar</span>
-                        <span className="text-2xl font-bold text-gray-500 hover:text-primary-600 transition-colors cursor-default">Havells</span>
-                        <span className="text-2xl font-bold text-gray-500 hover:text-primary-600 transition-colors cursor-default">Polycab</span>
-                        <span className="text-2xl font-bold text-gray-500 hover:text-primary-600 transition-colors cursor-default">UTL Solar</span>
-                    </div>
-                </div>
-            </section>
+            <TrustedPartners />
 
             {/* Contact Form Section */}
             <section className="bg-primary-50 animate-on-scroll">

@@ -13,6 +13,7 @@ const Products = () => {
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
+    const [limit, setLimit] = useState(9);
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState(1);
     const [total, setTotal] = useState(0);
@@ -21,20 +22,21 @@ const Products = () => {
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             fetchProducts();
-        }, 300);
+        }, 500); // 500ms debounce
 
         return () => clearTimeout(delayDebounceFn);
-    }, [page, keyword]);
+    }, [page, keyword, limit]);
 
     const fetchProducts = async () => {
+        setLoading(true);
         try {
-            const res = await api.get(`/api/products?page=${page}&limit=9&search=${keyword}`);
+            const res = await api.get(`/api/products?page=${page}&limit=${limit}&search=${keyword}`);
             if (res.data.products) {
                 setProducts(res.data.products);
                 setPages(res.data.pages);
                 setTotal(res.data.total);
             } else {
-                 setProducts(res.data);
+                setProducts(res.data);
             }
         } catch (error) {
             console.error("Error fetching products", error);
@@ -113,7 +115,7 @@ const Products = () => {
                                 ))}
                             </div>
                         )}
-                         <Pagination page={page} setPage={setPage} pages={pages} total={total} />
+                         <Pagination page={page} setPage={setPage} pages={pages} total={total} limit={limit} setLimit={setLimit} />
                     </>
                 )}
             </div>

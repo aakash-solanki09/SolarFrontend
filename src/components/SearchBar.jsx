@@ -1,19 +1,26 @@
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
 const SearchBar = ({ keyword, setKeyword, placeholder = 'Search...' }) => {
     return (
-        <div className="relative rounded-md shadow-sm max-w-md w-full">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search className="h-5 w-5 text-gray-400" aria-hidden="true" />
+        <div className="relative max-w-lg w-full group">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-gray-400 group-focus-within:text-solar-500 transition-colors" />
             </div>
             <input
                 type="text"
-                name="search"
-                className="block w-full rounded-md border-0 py-2 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-solar-600 sm:text-sm sm:leading-6"
+                className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-solar-500 focus:ring-1 focus:ring-solar-500 sm:text-sm transition-all shadow-sm hover:shadow-md"
                 placeholder={placeholder}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
             />
+            {keyword && (
+                <button
+                    onClick={() => setKeyword('')}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                >
+                    <X className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+                </button>
+            )}
         </div>
     );
 };
