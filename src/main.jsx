@@ -6,6 +6,7 @@ import './index.css';
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { HelmetProvider } from 'react-helmet-async';
+import { SiteConfigProvider } from './context/SiteConfigContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <SocketProvider>
           <HelmetProvider>
-            <App />
+            <SiteConfigProvider>
+              <App />
+            </SiteConfigProvider>
           </HelmetProvider>
         </SocketProvider>
       </AuthProvider>

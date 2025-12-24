@@ -72,10 +72,10 @@ const EditProfile = () => {
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen py-12">
+        <div className="min-h-screen py-12">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-700">
-                    <h1 className="text-2xl font-bold text-white mb-8 text-center">Edit Profile</h1>
+                <div className="bg-card rounded-xl shadow-lg p-8 border border-card-border">
+                    <h1 className="text-2xl font-bold text-card-foreground mb-8 text-center">Edit Profile</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
                         <ProfileUploader
@@ -85,49 +85,49 @@ const EditProfile = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                                <label className="block text-sm font-medium text-card-foreground/80 mb-1">Full Name</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-solar-500 placeholder-gray-400"
+                                    className="w-full px-3 py-2 bg-body border border-card-border rounded-md text-body-foreground focus:outline-none focus:ring-1 focus:ring-solar-500 placeholder-card-foreground/40"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                                <label className="block text-sm font-medium text-card-foreground/80 mb-1">Email</label>
                                 <input
                                     type="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-solar-500 placeholder-gray-400"
+                                    className="w-full px-3 py-2 bg-body border border-card-border rounded-md text-body-foreground focus:outline-none focus:ring-1 focus:ring-solar-500 placeholder-card-foreground/40"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-1">Phone</label>
+                                <label className="block text-sm font-medium text-card-foreground/80 mb-1">Phone</label>
                                 <input
                                     type="tel"
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-solar-500 placeholder-gray-400"
+                                    className="w-full px-3 py-2 bg-body border border-card-border rounded-md text-body-foreground focus:outline-none focus:ring-1 focus:ring-solar-500 placeholder-card-foreground/40"
                                 />
                             </div>
                         </div>
 
-                        <div className="border-t border-gray-700 pt-6">
-                            <h3 className="text-lg font-medium text-white mb-4">Address Details</h3>
-                            <AddressForm formData={formData} onChange={handleAddressChange} darkMode={true} />
+                        <div className="border-t border-card-border pt-6">
+                            <h3 className="text-lg font-medium text-card-foreground mb-4">Address Details</h3>
+                            <AddressForm formData={formData} onChange={handleAddressChange} darkMode={false} />
                         </div>
 
                         <div className="flex gap-4">
                             <button
                                 type="button"
                                 onClick={() => navigate('/dashboard')}
-                                className="flex-1 px-4 py-2 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors"
+                                className="flex-1 px-4 py-2 border border-card-border text-card-foreground/80 rounded-lg hover:bg-body transition-colors"
                             >
                                 Cancel
                             </button>

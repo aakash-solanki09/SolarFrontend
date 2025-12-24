@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import api from '../utils/api';
+import { useSiteConfig } from '../context/SiteConfigContext';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const Contact = ({ isEmbedded = false }) => {
+    const { siteConfig } = useSiteConfig();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -29,20 +31,20 @@ const Contact = ({ isEmbedded = false }) => {
     };
 
     return (
-        <div className={`${isEmbedded ? 'py-8' : 'bg-gray-50 min-h-screen py-16'} animate-on-scroll`}>
+        <div className={`${isEmbedded ? 'py-8' : 'min-h-screen py-16'} animate-on-scroll`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h1>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
+                    <h1 className="text-4xl font-bold text-body-foreground mb-4">Get in Touch</h1>
+                    <p className="text-body-foreground/80 max-w-2xl mx-auto">
                         Have questions about our solar solutions? We're here to help.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="bg-card rounded-xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2" style={{ backgroundColor: 'var(--card-bg)', color: 'var(--card-text)' }}>
                     {/* Contact Info */}
-                    <div className="bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
+                    <div className="flex flex-col text-card-foreground">
                         <div className="p-8 pb-0 flex-grow">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-8">Contact Information</h2>
+                            <h2 className="text-2xl font-bold mb-8" style={{ color: 'inherit' }}>Contact Information</h2>
                             <div className="space-y-6">
                                 <div className="flex items-start">
                                     <div className="flex-shrink-0">
@@ -51,9 +53,9 @@ const Contact = ({ isEmbedded = false }) => {
                                         </div>
                                     </div>
                                     <div className="ml-4">
-                                        <h3 className="text-lg font-medium text-gray-900">Phone</h3>
-                                        <p className="mt-1 text-gray-600">+91-9977137348</p>
-                                        <p className="text-sm text-gray-500">Mon-Sat 9am-7pm</p>
+                                        <h3 className="text-lg font-medium" style={{ color: 'inherit' }}>Phone</h3>
+                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>+91-9977137348</p>
+                                        <p className="text-sm" style={{ color: 'inherit', opacity: 0.6 }}>Mon-Sat 9am-7pm</p>
                                     </div>
                                 </div>
 
@@ -64,9 +66,9 @@ const Contact = ({ isEmbedded = false }) => {
                                         </div>
                                     </div>
                                     <div className="ml-4">
-                                        <h3 className="text-lg font-medium text-gray-900">Email</h3>
-                                        <p className="mt-1 text-gray-600">vishwamangalsolar@gmail.com</p>
-                                        <p className="text-sm text-gray-500">We reply within 24 hours</p>
+                                        <h3 className="text-lg font-medium" style={{ color: 'inherit' }}>Email</h3>
+                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>vishwamangalsolar@gmail.com</p>
+                                        <p className="text-sm" style={{ color: 'inherit', opacity: 0.6 }}>We reply within 24 hours</p>
                                     </div>
                                 </div>
 
@@ -77,8 +79,8 @@ const Contact = ({ isEmbedded = false }) => {
                                         </div>
                                     </div>
                                     <div className="ml-4">
-                                        <h3 className="text-lg font-medium text-gray-900">Head Office</h3>
-                                        <p className="mt-1 text-gray-600">226-B, Prajapat Nagar, Indore – 452009, Madhya Pradesh, India</p>
+                                        <h3 className="text-lg font-medium" style={{ color: 'inherit' }}>Head Office</h3>
+                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>226-B, Prajapat Nagar, Indore – 452009, Madhya Pradesh, India</p>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +89,7 @@ const Contact = ({ isEmbedded = false }) => {
                         {/* Full Width/Height Image */}
                         <div className="mt-8 flex-grow h-64 min-h-[200px] w-full relative">
                              <img 
-                                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" 
+                                src={siteConfig?.contactImage || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"}
                                 alt="Our Office" 
                                 className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                             />
@@ -95,11 +97,11 @@ const Contact = ({ isEmbedded = false }) => {
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-white rounded-xl shadow-lg p-8">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-8">Send us a Message</h2>
+                    <div className="p-8">
+                        <h2 className="text-2xl font-bold mb-8" style={{ color: 'inherit' }}>Send us a Message</h2>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <label className="block text-sm font-medium mb-1" style={{ color: 'inherit', opacity: 0.9 }}>Name</label>
                                 <input
                                     type="text"
                                     name="name"
@@ -107,11 +109,11 @@ const Contact = ({ isEmbedded = false }) => {
                                     onChange={handleChange}
                                     required
                                     placeholder="Enter your full name"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                    className="w-full px-4 py-2 border border-card-border rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400 bg-body text-body-foreground"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <label className="block text-sm font-medium mb-1" style={{ color: 'inherit', opacity: 0.9 }}>Email</label>
                                 <input
                                     type="email"
                                     name="email"
@@ -119,22 +121,22 @@ const Contact = ({ isEmbedded = false }) => {
                                     onChange={handleChange}
                                     required
                                     placeholder="Enter your email address"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                    className="w-full px-4 py-2 border border-card-border rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400 bg-body text-body-foreground"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                <label className="block text-sm font-medium mb-1" style={{ color: 'inherit', opacity: 0.9 }}>Phone</label>
                                 <input
                                     type="tel"
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleChange}
                                     placeholder="Enter your phone number"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                    className="w-full px-4 py-2 border border-card-border rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400 bg-body text-body-foreground"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <label className="block text-sm font-medium mb-1" style={{ color: 'inherit', opacity: 0.9 }}>Message</label>
                                 <textarea
                                     name="message"
                                     value={formData.message}
@@ -142,14 +144,14 @@ const Contact = ({ isEmbedded = false }) => {
                                     required
                                     rows="4"
                                     placeholder="How can we help you?"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                    className="w-full px-4 py-2 border border-card-border rounded-lg focus:ring-2 focus:ring-solar-500 focus:border-transparent outline-none transition-all placeholder-gray-400 bg-body text-body-foreground"
                                 ></textarea>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={status === 'sending'}
-                                className="w-full bg-solar-600 text-black py-4 rounded-lg hover:bg-solar-700 transition-all font-extrabold text-lg shadow-lg flex items-center justify-center transform hover:scale-[1.02]"
+                                className="w-full btn-dynamic py-4 rounded-lg transition-all font-extrabold text-lg shadow-lg flex items-center justify-center transform hover:scale-[1.02]"
                             >
                                 {status === 'sending' ? 'Sending...' : (
                                     <>

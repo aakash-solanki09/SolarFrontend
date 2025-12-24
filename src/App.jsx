@@ -27,6 +27,7 @@ import AdminChat from './pages/admin/AdminChat';
 import AdminProductDetails from './pages/admin/AdminProductDetails';
 import AdminInquiries from './pages/admin/AdminInquiries';
 import AdminInquiryDetails from './pages/admin/AdminInquiryDetails';
+import AdminSettings from './pages/admin/AdminSettings';
 
 // Protected Route Components
 const PrivateRoute = () => {
@@ -77,6 +78,7 @@ function App() {
           <Route path="/admin/inquiries" element={<AdminInquiries />} />
           <Route path="/admin/inquiries/:id" element={<AdminInquiryDetails />} />
           <Route path="/admin/chat" element={<AdminChat />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
         </Route>
       </Route>
     </Routes>

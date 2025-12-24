@@ -7,6 +7,26 @@ export default {
     theme: {
         extend: {
             colors: {
+                primary: {
+                    DEFAULT: 'var(--color-primary)',
+                    active: 'var(--color-primary-active)',
+                    light: 'var(--color-primary-light)',
+                    clarity: 'var(--color-primary-clarity)',
+                    inverse: 'var(--color-primary-inverse)',
+                    foreground: 'var(--primary-foreground)'
+                },
+                secondary: {
+                    DEFAULT: 'var(--color-secondary)',
+                    active: 'var(--color-secondary-active)',
+                    light: 'var(--color-secondary-light)',
+                    clarity: 'var(--color-secondary-clarity)',
+                    inverse: 'var(--color-secondary-inverse)',
+                    foreground: 'var(--secondary-foreground)'
+                },
+                accent: {
+                    DEFAULT: 'var(--accent-color)',
+                    foreground: 'var(--accent-foreground)'
+                },
                 solar: {
                     50: '#fffbeb',
                     100: '#fef3c7',
@@ -19,17 +39,27 @@ export default {
                     800: '#92400e',
                     900: '#78350f',
                 },
-                primary: {
-                    50: '#eff6ff',
-                    100: '#dbeafe',
-                    200: '#bfdbfe',
-                    300: '#93c5fd',
-                    400: '#60a5fa',
-                    500: '#3b82f6',
-                    600: '#2563eb',
-                    700: '#1d4ed8',
-                    800: '#1e40af',
-                    900: '#1e3a8a',
+                header: {
+                    DEFAULT: 'var(--header-bg, #ffffff)',
+                    foreground: 'var(--header-text, #000000)',
+                    border: 'var(--header-border, transparent)',
+                    hover: 'var(--header-hover-bg, #f3f4f6)',
+                    'hover-foreground': 'var(--header-hover-text, #111827)'
+                },
+                footer: {
+                    DEFAULT: 'var(--footer-bg, #111827)',
+                    foreground: 'var(--footer-text, #ffffff)',
+                    hover: 'var(--footer-hover-bg, #374151)',
+                    'hover-foreground': 'var(--footer-hover-text, #ffffff)'
+                },
+                body: {
+                    DEFAULT: 'var(--body-bg, #f3f4f6)',
+                    foreground: 'var(--body-text, #1f2937)'
+                },
+                card: {
+                    DEFAULT: 'var(--card-bg, #ffffff)',
+                    foreground: 'var(--card-text, #1f2937)',
+                    border: 'var(--card-border, transparent)'
                 }
             }
         },

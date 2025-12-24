@@ -91,7 +91,7 @@ const AdminChat = () => {
     };
 
     return (
-        <div className="bg-gray-100 min-h-screen p-8">
+        <div className="min-h-screen p-8">
             <div className="max-w-6xl mx-auto h-[calc(100vh-8rem)] bg-white rounded-xl shadow-lg overflow-hidden flex">
                 {/* Sidebar - User List */}
                 <div className="w-1/3 border-r border-gray-200 flex flex-col">

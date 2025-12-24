@@ -17,16 +17,17 @@ const partners = [
 
 const TrustedPartners = () => {
     return (
-        <section className="py-16 bg-white animate-on-scroll">
+        <section className="py-16 bg-body animate-on-scroll">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+                <h2 className="text-3xl font-bold text-center text-body-foreground mb-12">
                     Trusted Brands & Partners
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
                     {partners.map((partner, index) => (
                         <div 
                             key={index} 
-                            className="group relative flex items-center justify-center p-4 w-full h-32 bg-white rounded-xl shadow-md border-2 border-transparent hover:border-primary-100 hover:shadow-xl transition-all duration-300"
+                            className="group relative flex items-center justify-center p-4 w-full h-32 bg-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                            style={{ backgroundColor: 'var(--card-bg)', color: 'var(--card-text)' }}
                         >
                             {partner.logo ? (
                                 <img 
@@ -35,7 +36,7 @@ const TrustedPartners = () => {
                                     className="max-h-20 w-auto transition-transform duration-300 group-hover:scale-110"
                                 />
                             ) : (
-                                <span className="text-lg font-bold text-gray-400 group-hover:text-primary-600 transition-colors text-center">
+                                <span className="text-lg font-bold text-card-foreground/50 group-hover:text-primary-600 transition-colors text-center">
                                     {partner.name}
                                 </span>
                             )}

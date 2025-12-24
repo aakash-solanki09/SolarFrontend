@@ -4,6 +4,7 @@ import { ArrowRight, Sun, Battery, ShieldCheck } from 'lucide-react';
 import api from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import { useAuth } from '../context/AuthContext';
+import { useSiteConfig } from '../context/SiteConfigContext';
 import homeBg from '../assets/homeBg.avif';
 import Contact from './Contact';
 
@@ -16,6 +17,7 @@ const Home = () => {
     const [products, setProducts] = useState([]);
     const [loadingProducts, setLoadingProducts] = useState(true);
     const { isAuthenticated } = useAuth();
+    const { siteConfig } = useSiteConfig();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -66,7 +68,7 @@ const Home = () => {
             <section className="relative bg-black text-white py-20 lg:py-32 overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={homeBg}
+                        src={siteConfig?.heroImage || homeBg}
                         alt="Solar Panels"
                         className="w-full h-full object-cover opacity-90 scale-105 animate-float"
                     />
@@ -74,32 +76,30 @@ const Home = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                    <span className="block text-[#fcd34d] font-extrabold tracking-widest uppercase mb-3 drop-shadow-md animate-fade-in-up text-lg md:text-xl">
-                        Central India’s Leading Rooftop Solar Company
+                    <span className="block font-extrabold tracking-widest uppercase mb-3 drop-shadow-md animate-fade-in-up text-lg md:text-xl" style={{ color: 'var(--color-accent)' }}>
+                        {siteConfig?.heroText?.topText || "Central India’s Leading Rooftop Solar Company"}
                     </span>
                     <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-2 text-[#fbbf24] drop-shadow-2xl animate-fade-in-up-delay-1 leading-tight">
-                        Vishwamangal <span className="text-[#f59e0b] drop-shadow-lg">Solar Energy</span> Service
+                        {siteConfig?.heroText?.headline || "Vishwamangal Solar Energy Service"}
                     </h1>
                     
                     <div className="animate-fade-in-up-delay-2">
                         <HeroImageSlider />
                     </div>
 
-                    <p className="text-xl md:text-3xl text-gray-100 mb-10 max-w-4xl mx-auto font-bold drop-shadow-lg animate-fade-in-up-delay-2">
-                        Premium On-grid Rooftop Solar Power Plants.
-                        <br/>
-                        <span className="text-lg md:text-xl mt-4 block text-[#fde68a] font-semibold tracking-wide">Site Survey | Installation | Net Metering | After-Sales Service</span>
+                    <p className="text-xl md:text-3xl text-white/90 mb-10 max-w-4xl mx-auto font-bold drop-shadow-lg animate-fade-in-up-delay-2 whitespace-pre-line">
+                        {siteConfig?.heroText?.description || "Premium On-grid Rooftop Solar Power Plants.\nSite Survey | Installation | Net Metering | After-Sales Service"}
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-6 animate-fade-in-up-delay-2 mt-8">
                         <Link
                             to="/contact"
-                            className="px-8 py-4 bg-[#f59e0b] text-black font-extrabold text-lg rounded-full hover:bg-[#fbbf24] transition-all shadow-[0_0_15px_rgba(245,158,11,0.5)] hover:shadow-[0_0_25px_rgba(245,158,11,0.7)] transform hover:scale-105 flex items-center justify-center group"
+                            className="px-8 py-4 btn-dynamic rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center group"
                         >
                             Get a Free Quote <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link
                             to="/products"
-                            className="px-8 py-4 bg-transparent border-2 border-[#fbbf24] text-[#fbbf24] font-bold text-lg rounded-full hover:bg-[#fbbf24] hover:text-black transition-all shadow-lg hover:shadow-[0_0_20px_rgba(251,191,36,0.5)] transform hover:scale-105 flex items-center justify-center"
+                             className="px-8 py-4 bg-transparent border-2 border-[var(--btn-bg)] text-[var(--btn-bg)] font-bold text-lg rounded-full hover:bg-[var(--btn-bg)] hover:text-[var(--btn-text)] transition-all shadow-lg hover:shadow-[0_0_20px_rgba(251,191,36,0.5)] transform hover:scale-105 flex items-center justify-center"
                         >
                             View Our Products
                         </Link>
@@ -108,11 +108,11 @@ const Home = () => {
             </section>
 
             {/* Products Section */}
-            <section className="py-20 bg-gray-50 animate-on-scroll">
+            <section className="py-20 bg-body animate-on-scroll">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Premium Solar Products</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <h2 className="text-3xl font-bold text-body-foreground mb-4">Our Premium Solar Products</h2>
+                        <p className="text-xl text-body-foreground/80 max-w-3xl mx-auto">
                             Explore our range of high-efficiency solar solutions designed for your needs.
                         </p>
                     </div>
@@ -149,11 +149,11 @@ const Home = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-primary-900 animate-on-scroll">
+            <section className="py-20 bg-footer text-footer-foreground animate-on-scroll">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl font-bold text-black mb-6">Start Your Solar Journey Today</h2>
-                    <p className="text-xl text-black mb-10">
-                        Contact us at <span className="text-black font-bold">+91-9977137348</span> for a personalized consultation.
+                    <h2 className="text-3xl font-bold text-inherit mb-6">Start Your Solar Journey Today</h2>
+                    <p className="text-xl text-inherit/90 mb-10">
+                        Contact us at <span className="font-bold">+91-9977137348</span> for a personalized consultation.
                     </p>
                     <Link
                         to="/signup"

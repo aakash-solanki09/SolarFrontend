@@ -1,17 +1,52 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSiteConfig } from '../context/SiteConfigContext';
 import api from '../utils/api';
-import { Menu, X, Sun, LogOut, LayoutDashboard, Users, Package, MessageSquare, Bell, Mail } from 'lucide-react';
+import { Menu, X, Sun, LogOut, LayoutDashboard, Users, Package, MessageSquare, Bell, Mail, Settings } from 'lucide-react';
 
 const AdminNavbar = () => {
     const { logout } = useAuth();
+    const { siteConfig } = useSiteConfig();
     const [isOpen, setIsOpen] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [showNotifications, setShowNotifications] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
     const dropdownRef = useRef(null);
+
+    const AdminNavLink = ({ to, icon: Icon, children }) => {
+        const isActive = location.pathname === to || location.pathname.startsWith(to + '/');
+        
+        return (
+            <Link 
+                to={to} 
+                className={`px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors`}
+                style={{ 
+                    color: isActive ? 'var(--header-hover-text)' : 'inherit',
+                    backgroundColor: isActive ? 'var(--header-hover-bg)' : 'transparent',
+                    opacity: isActive ? 1 : 0.8
+                }}
+                onMouseEnter={(e) => {
+                    if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'var(--header-hover-bg)';
+                        e.currentTarget.style.color = 'var(--header-hover-text)';
+                        e.currentTarget.style.opacity = '1';
+                    }
+                }}
+                onMouseLeave={(e) => {
+                    if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = 'inherit';
+                        e.currentTarget.style.opacity = '0.8';
+                    }
+                }}
+            >
+                <Icon className="h-4 w-4 mr-2" /> {children}
+            </Link>
+        );
+    };
 
     useEffect(() => {
         fetchNotifications();
@@ -51,38 +86,32 @@ const AdminNavbar = () => {
     };
 
     return (
-        <nav className="bg-gray-900 shadow-md sticky top-0 z-50">
+        <nav className="bg-header shadow-md sticky top-0 z-50 text-header-foreground" style={{ backgroundColor: 'var(--header-bg)', color: 'var(--header-text)' }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
                         <Link to="/admin/dashboard" className="flex-shrink-0 flex items-center">
                             <Sun className="h-8 w-8 text-solar-500" />
-                            <span className="ml-2 text-xl font-bold text-white">Vishwamangal Solar Admin</span>
+                            <span className="ml-2 text-xl font-bold hidden sm:inline">{siteConfig?.appName || 'Solar'} Admin</span>
+                            <span className="ml-2 text-xl font-bold sm:hidden">Admin</span>
                         </Link>
                     </div>
 
-                    <div className="hidden md:flex items-center space-x-8">
-                        <Link to="/admin/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
-                            <LayoutDashboard className="h-4 w-4 mr-2" /> Dashboard
-                        </Link>
-                        <Link to="/admin/products" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
-                            <Package className="h-4 w-4 mr-2" /> Products
-                        </Link>
-                        <Link to="/admin/users" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
-                            <Users className="h-4 w-4 mr-2" /> Users
-                        </Link>
-                        <Link to="/admin/inquiries" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
-                            <Mail className="h-4 w-4 mr-2" /> Inquiries
-                        </Link>
-                        <Link to="/admin/chat" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
-                            <MessageSquare className="h-4 w-4 mr-2" /> Chat
-                        </Link>
+                    <div className="hidden xl:flex items-center space-x-6">
+                        {/* Define a common class for hover effects */}
+                        <AdminNavLink to="/admin/dashboard" icon={LayoutDashboard}>Dashboard</AdminNavLink>
+                        <AdminNavLink to="/admin/products" icon={Package}>Products</AdminNavLink>
+                        <AdminNavLink to="/admin/users" icon={Users}>Users</AdminNavLink>
+                        <AdminNavLink to="/admin/inquiries" icon={Mail}>Inquiries</AdminNavLink>
+                        <AdminNavLink to="/admin/chat" icon={MessageSquare}>Chat</AdminNavLink>
+                        <AdminNavLink to="/admin/settings" icon={Settings}>Settings</AdminNavLink>
 
                         {/* Notification Bell */}
                         <div className="relative" ref={dropdownRef}>
                             <button 
                                 onClick={() => setShowNotifications(!showNotifications)} 
-                                className="text-gray-300 hover:text-white p-2 relative rounded-full hover:bg-gray-800 transition-colors"
+                                className="p-2 relative rounded-full hover:bg-header-foreground/10 transition-colors"
+                                style={{ color: 'inherit', opacity: 0.8 }}
                             >
                                 <Bell className="h-5 w-5" />
                                 {unreadCount > 0 && (
@@ -95,6 +124,7 @@ const AdminNavbar = () => {
                             {/* Dropdown */}
                             {showNotifications && (
                                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl py-1 z-50 ring-1 ring-black ring-opacity-5 overflow-hidden">
+                                    {/* (Existing Notification Dropdown Content - usually handles its own internal styling well, keeping as is mostly but checking for glaring issues) */}
                                     <div className="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                                         <h3 className="text-sm font-semibold text-gray-800">Notifications</h3>
                                         <Link to="/admin/notifications" onClick={() => setShowNotifications(false)} className="text-xs text-blue-600 hover:text-blue-800 font-medium">View All</Link>
@@ -128,13 +158,14 @@ const AdminNavbar = () => {
 
                         <button
                             onClick={handleLogout}
-                            className="text-gray-300 hover:text-red-400 flex items-center px-3 py-2 rounded-md text-sm font-medium"
+                            className="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:text-red-600 transition-colors"
+                            style={{ color: 'inherit', opacity: 0.8 }}
                         >
                             <LogOut className="h-5 w-5 mr-1" /> Logout
                         </button>
                     </div>
 
-                    <div className="flex items-center md:hidden">
+                    <div className="flex items-center xl:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none"
@@ -147,14 +178,15 @@ const AdminNavbar = () => {
 
             {/* Mobile menu */}
             {isOpen && (
-                <div className="md:hidden bg-gray-800">
+                <div className="xl:hidden" style={{ backgroundColor: 'var(--header-bg)', color: 'var(--header-text)' }}>
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <Link to="/admin/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Dashboard</Link>
-                        <Link to="/admin/products" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Products</Link>
-                        <Link to="/admin/users" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Users</Link>
-                        <Link to="/admin/inquiries" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Inquiries</Link>
-                        <Link to="/admin/chat" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Chat</Link>
-                        <button onClick={handleLogout} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-400 hover:bg-gray-700">Logout</button>
+                        <Link to="/admin/dashboard" className="block px-3 py-2 rounded-md text-base font-medium hover:opacity-100 hover:bg-header-foreground/10 transition-colors" style={{ color: 'inherit', opacity: 0.8 }}>Dashboard</Link>
+                        <Link to="/admin/products" className="block px-3 py-2 rounded-md text-base font-medium hover:opacity-100 hover:bg-header-foreground/10 transition-colors" style={{ color: 'inherit', opacity: 0.8 }}>Products</Link>
+                        <Link to="/admin/users" className="block px-3 py-2 rounded-md text-base font-medium hover:opacity-100 hover:bg-header-foreground/10 transition-colors" style={{ color: 'inherit', opacity: 0.8 }}>Users</Link>
+                        <Link to="/admin/inquiries" className="block px-3 py-2 rounded-md text-base font-medium hover:opacity-100 hover:bg-header-foreground/10 transition-colors" style={{ color: 'inherit', opacity: 0.8 }}>Inquiries</Link>
+                        <Link to="/admin/chat" className="block px-3 py-2 rounded-md text-base font-medium hover:opacity-100 hover:bg-header-foreground/10 transition-colors" style={{ color: 'inherit', opacity: 0.8 }}>Chat</Link>
+                        <Link to="/admin/settings" className="block px-3 py-2 rounded-md text-base font-medium hover:opacity-100 hover:bg-header-foreground/10 transition-colors" style={{ color: 'inherit', opacity: 0.8 }}>Settings</Link>
+                        <button onClick={handleLogout} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50">Logout</button>
                     </div>
                 </div>
             )}

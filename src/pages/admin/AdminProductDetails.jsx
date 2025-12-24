@@ -58,7 +58,7 @@ const AdminProductDetails = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     {/* Image Section */}
-                    <div className="h-full flex flex-col bg-gray-50">
+                    <div className="h-full flex flex-col">
                         <div className="h-96 w-full relative">
                             {mainImage ? (
                                 <img

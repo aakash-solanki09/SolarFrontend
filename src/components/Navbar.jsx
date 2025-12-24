@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSiteConfig } from '../context/SiteConfigContext';
 import { Menu, X, Sun, User, LogOut } from 'lucide-react';
 
 const Navbar = () => {
     const { user, logout, isAuthenticated, isAdmin } = useAuth();
+    const { siteConfig } = useSiteConfig();
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,37 +18,52 @@ const Navbar = () => {
 
     const isActive = (path) => location.pathname === path;
 
-    const NavLink = ({ to, children }) => (
-        <Link 
-            to={to} 
-            className={`relative px-4 py-2 font-medium transition-all duration-300 group z-10 ${
-                isActive(to) ? 'text-black' : 'text-gray-600 hover:text-solar-700'
-            }`}
-        >
-            {/* Irregular Background Shape */}
-            <span className={`absolute inset-0 transform transition-all duration-300 -z-10 rounded-md ${
-                isActive(to) 
-                    ? 'bg-solar-400 -skew-x-12 scale-100 outline outline-2 outline-solar-500 shadow-lg' 
-                    : 'bg-gray-100 scale-0 group-hover:scale-100 -skew-x-12 group-hover:bg-solar-50'
-            }`}></span>
-            
-            <span className="relative z-10">{children}</span>
-        </Link>
-    );
+    const NavLink = ({ to, children }) => {
+        const [isHovered, setIsHovered] = useState(false);
+        const active = isActive(to);
+        
+        return (
+            <Link 
+                to={to} 
+                className={`relative px-4 py-2 font-medium transition-all duration-300 group z-10`}
+                style={{ 
+                    color: isHovered || active ? 'var(--header-hover-text)' : 'inherit',
+                    opacity: active ? 1 : 0.8,
+                    fontWeight: active ? '700' : '500'
+                }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <span className={`absolute inset-0 transform transition-all duration-300 -z-10 rounded-md ${
+                    active 
+                        ? '-skew-x-12 scale-100 outline outline-2 outline-solar-500 shadow-lg' 
+                        : 'scale-0 group-hover:scale-100 -skew-x-12'
+                }`} style={{ backgroundColor: 'var(--header-hover-bg)' }}></span>
+                
+                <span className="relative z-10">{children}</span>
+            </Link>
+        );
+    };
 
     return (
-        <nav className="bg-white/90 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
+        <nav className="bg-header text-header-foreground shadow-md sticky top-0 z-50 transition-all duration-300 border-b border-header-border" style={{ backgroundColor: 'var(--header-bg)', color: 'var(--header-text)' }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-20 items-center">
                     <div className="flex items-center">
                         <Link to="/" className="flex-shrink-0 flex items-center group">
-                            <div className="relative">
-                                <Sun className="h-9 w-9 text-solar-500 transform transition-transform duration-700 group-hover:rotate-180" />
-                                <div className="absolute inset-0 bg-solar-400 blur-lg opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
-                            </div>
-                            <span className="ml-3 text-xl font-extrabold text-gray-900 tracking-tight">
-                                Vishwamangal <span className="text-solar-600">Solar</span>
-                            </span>
+                            {siteConfig?.appLogo?.primary ? (
+                                <img src={siteConfig.appLogo.primary} alt={siteConfig.appName} className="h-12 w-auto" />
+                            ) : (
+                                <>
+                                    <div className="relative">
+                                        <Sun className="h-9 w-9 text-solar-500 transform transition-transform duration-700 group-hover:rotate-180" />
+                                        <div className="absolute inset-0 bg-solar-400 blur-lg opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
+                                    </div>
+                                    <span className="ml-3 text-xl font-extrabold text-header-foreground tracking-tight">
+                                        {siteConfig?.appName || 'Vishwamangal Solar'}
+                                    </span>
+                                </>
+                            )}
                         </Link>
                     </div>
 

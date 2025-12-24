@@ -28,7 +28,7 @@ const UserDetails = () => {
     if (!user) return <div className="text-center py-20">User not found</div>;
 
     return (
-        <div className="bg-gray-100 min-h-screen p-8">
+        <div className="min-h-screen p-8">
             <div className="max-w-4xl mx-auto">
                 <button
                     onClick={() => navigate('/admin/users')}

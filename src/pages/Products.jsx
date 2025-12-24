@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import { useAuth } from '../context/AuthContext';
+import { useSiteConfig } from '../context/SiteConfigContext';
 import Pagination from '../components/Pagination';
 import SearchBar from '../components/SearchBar';
 import SEO from '../components/SEO';
 
 const Products = () => {
+    const { siteConfig } = useSiteConfig();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const { isAuthenticated } = useAuth();
@@ -68,16 +70,16 @@ const Products = () => {
     };
 
     return (
-        <div className="bg-gray-50 min-h-screen py-12">
+        <div className="bg-body min-h-screen py-12">
             <SEO 
                 title="Our Products" 
                 description="Explore our range of high-efficiency solar panels and inverters. Find the perfect solar solution for your needs."
             />
-             {/* Products Hero */}
+            {/* Products Hero */}
              <div className="relative bg-black py-20 lg:py-28">
                 <div className="absolute inset-0 z-0">
                     <img
-                         src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=1600&q=80"
+                         src={siteConfig?.productPageImage || "https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=1600&q=80"}
                         alt="Solar Products"
                         className="w-full h-full object-cover opacity-60"
                     />
@@ -85,7 +87,7 @@ const Products = () => {
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">Our Premium Solar Solutions</h1>
-                    <p className="text-xl text-gray-200 max-w-3xl mx-auto drop-shadow-md">
+                    <p className="text-xl text-white/90 max-w-3xl mx-auto drop-shadow-md">
                          High-efficiency panels, advanced inverters, and complete mounting systems for every need.
                     </p>
                 </div>
@@ -98,11 +100,11 @@ const Products = () => {
                 </div>
 
                 {loading ? (
-                    <div className="text-center py-20">Loading products...</div>
+                    <div className="text-center py-20 text-body-foreground/70">Loading products...</div>
                 ) : (
                     <>
                         {products.length === 0 ? (
-                             <div className="text-center py-20 text-gray-500">No products found matching your search.</div>
+                             <div className="text-center py-20 text-body-foreground/60">No products found matching your search.</div>
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {products.map(product => (

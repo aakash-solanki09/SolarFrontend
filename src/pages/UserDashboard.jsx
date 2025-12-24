@@ -25,7 +25,7 @@ const UserDashboard = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen">
             {/* Header / Hero Section */}
             {/* Header / Hero Section */}
             <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12 lg:py-16 relative">

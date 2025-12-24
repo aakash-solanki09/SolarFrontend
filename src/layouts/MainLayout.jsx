@@ -7,7 +7,7 @@ const MainLayout = () => {
     useScrollAnimation();
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-body text-body-foreground" style={{ backgroundColor: 'var(--body-bg)', color: 'var(--body-text)' }}>
             <Navbar />
             <main className="flex-grow">
                 <Outlet />

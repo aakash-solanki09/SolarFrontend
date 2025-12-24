@@ -56,7 +56,7 @@ const ProductDetails = () => {
     const mainImage = selectedImage || (allImages.length > 0 ? allImages[0] : null);
 
     return (
-        <div className="bg-gray-50 min-h-screen py-12">
+        <div className="min-h-screen py-12">
             <SEO 
                 title={product.name}
                 description={product.description?.substring(0, 160)}
@@ -110,7 +110,7 @@ const ProductDetails = () => {
                                     <>
                                         <button
                                             onClick={handleInterest}
-                                            className="flex-1 bg-solar-500 text-black py-3 px-6 rounded-lg hover:bg-solar-600 transition-colors flex items-center justify-center font-semibold shadow-md"
+                                            className="flex-1 btn-dynamic py-3 px-6 rounded-lg transition-colors flex items-center justify-center font-semibold shadow-md"
                                         >
                                             <ShoppingBag className="h-5 w-5 mr-2" />
                                             Add to Interested
@@ -126,7 +126,7 @@ const ProductDetails = () => {
                                 ) : (
                                     <button
                                         onClick={() => navigate('/login')}
-                                        className="flex-1 bg-gray-800 text-white py-3 px-6 rounded-lg hover:bg-gray-900 transition-colors flex items-center justify-center font-semibold shadow-md"
+                                        className="flex-1 btn-dynamic py-3 px-6 rounded-lg transition-colors flex items-center justify-center font-semibold shadow-md"
                                     >
                                         Login to Show Interest or Chat
                                     </button>
