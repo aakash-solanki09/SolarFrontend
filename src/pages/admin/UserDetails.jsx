@@ -91,8 +91,8 @@ const UserDetails = () => {
                                             <div className="p-4 flex flex-col justify-center">
                                                 <h4 className="font-bold text-black mb-1 text-lg">{product.name}</h4>
                                                 <p className="text-gray-800 font-semibold">${product.price}</p>
-                                                <Link to={`/products/${product._id}`} className="text-solar-600 hover:text-solar-700 text-sm mt-2 font-medium">
-                                                    View Details
+                                                <Link to={`/admin/products/${product._id}`} className="text-solar-600 hover:text-solar-700 text-sm mt-2 font-medium">
+                                                    View Admin Details
                                                 </Link>
                                             </div>
                                         </div>

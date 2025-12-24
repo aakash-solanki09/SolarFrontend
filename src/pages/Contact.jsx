@@ -54,7 +54,7 @@ const Contact = ({ isEmbedded = false }) => {
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-lg font-medium" style={{ color: 'inherit' }}>Phone</h3>
-                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>+91-9977137348</p>
+                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>{siteConfig?.companyDetails?.phone || "+91-9977137348"}</p>
                                         <p className="text-sm" style={{ color: 'inherit', opacity: 0.6 }}>Mon-Sat 9am-7pm</p>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@ const Contact = ({ isEmbedded = false }) => {
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-lg font-medium" style={{ color: 'inherit' }}>Email</h3>
-                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>vishwamangalsolar@gmail.com</p>
+                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>{siteConfig?.companyDetails?.email || "vishwamangalsolar@gmail.com"}</p>
                                         <p className="text-sm" style={{ color: 'inherit', opacity: 0.6 }}>We reply within 24 hours</p>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@ const Contact = ({ isEmbedded = false }) => {
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-lg font-medium" style={{ color: 'inherit' }}>Head Office</h3>
-                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>226-B, Prajapat Nagar, Indore – 452009, Madhya Pradesh, India</p>
+                                        <p className="mt-1" style={{ color: 'inherit', opacity: 0.8 }}>{siteConfig?.companyDetails?.address || "226-B, Prajapat Nagar, Indore – 452009, Madhya Pradesh, India"}</p>
                                     </div>
                                 </div>
                             </div>

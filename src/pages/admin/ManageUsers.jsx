@@ -85,12 +85,14 @@ const ManageUsers = () => {
                                     <div className="text-sm text-gray-900">{user.phone}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <Link to={`/admin/users/${user._id}`} className="text-blue-600 hover:text-blue-900 mr-4">
-                                        <Eye className="h-5 w-5" />
-                                    </Link>
-                                    <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900">
-                                        <Trash2 className="h-5 w-5" />
-                                    </button>
+                                    <div className="flex items-center justify-end gap-3">
+                                        <Link to={`/admin/users/${user._id}`} className="text-gray-600 hover:text-gray-900">
+                                            <Eye className="h-5 w-5" />
+                                        </Link>
+                                        <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900">
+                                            <Trash2 className="h-5 w-5" />
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

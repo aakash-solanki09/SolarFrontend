@@ -25,7 +25,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-xl">About Vishwamangal Solar</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-xl">About {siteConfig?.companyDetails?.name || siteConfig?.appName || 'Vishwamangal Solar'}</h1>
                     <div className="w-24 h-1 bg-solar-400 mb-6"></div>
                     <p className="text-xl md:text-2xl text-white/90 max-w-2xl font-light">
                         Empowering Central India with sustainable, clean energy solutions since our inception.
@@ -51,7 +51,7 @@ const About = () => {
                     <div>
                         <h2 className="text-3xl font-bold text-body-foreground mb-6">Our Mission</h2>
                         <p className="text-body-foreground/90 mb-6 text-lg leading-relaxed">
-                            Vishwamangal Solar Energy Service is committed to delivering high-quality, on-grid rooftop solar power plants.
+                            {siteConfig?.companyDetails?.name || siteConfig?.appName || 'Vishwamangal Solar Energy Service'} is committed to delivering high-quality, on-grid rooftop solar power plants.
                             We aim to reduce electricity costs for our clients while contributing to a greener, cleaner environment.
                         </p>
                         <p className="text-body-foreground/90 text-lg">
