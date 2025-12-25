@@ -5,7 +5,7 @@ const SEO = ({ title, description, keywords, image, url }) => {
     const defaultDescription = "Leading provider of sustainable solar energy solutions. Residential, commercial, and industrial solar installations.";
     const defaultKeywords = "solar panels, solar energy, renewable energy, solar installation, sustainable power";
     const defaultImage = "https://vishwamangalsolar.com/og-image.jpg"; // Replace with actual default image URL
-    const siteUrl = "https://vishwamangalsolar.com"; // Replace with actual domain
+    const siteUrl = import.meta.env.VITE_SITE_URL || "https://vishwamangalsolar.com";
 
     const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     const fullDescription = description || defaultDescription;
