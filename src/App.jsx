@@ -42,9 +42,17 @@ const AdminRoute = () => {
   return isAuthenticated && isAdmin ? <Outlet /> : <Navigate to="/admin/login" />;
 };
 
+import DynamicFavicon from './components/common/DynamicFavicon';
+
 function App() {
   return (
+    <>
+    <DynamicFavicon />
     <Routes>
+      {/* Public & User Routes - Wrapped in MainLayout */}
+      {/* Admin Login - Standalone Layout */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+
       {/* Public & User Routes - Wrapped in MainLayout */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
@@ -54,7 +62,6 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* User Protected Routes */}
         <Route element={<PrivateRoute />}>
@@ -82,6 +89,7 @@ function App() {
         </Route>
       </Route>
     </Routes>
+    </>
   );
 }
 
