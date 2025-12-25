@@ -3,7 +3,7 @@ import { ShoppingBag, MessageCircle, LogIn, Heart } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const ProductCard = ({ product, onInterest, onChat }) => {
-    console.log('ProductCard product:', product);
+
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
 

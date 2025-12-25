@@ -21,7 +21,7 @@ const Chat = () => {
         socket.emit('join', user._id);
 
         socket.on('message', (message) => {
-            console.log('Chat received message:', message);
+
             setMessages((prev) => [...prev, message]);
         });
 
@@ -31,7 +31,7 @@ const Chat = () => {
     }, [socket, user]);
 
     useEffect(() => {
-        console.log("Current messages state:", messages);
+
     }, [messages]);
 
     const fetchMessages = async () => {
@@ -48,7 +48,7 @@ const Chat = () => {
     const handleSendMessage = (text) => {
         if (!socket) return;
 
-        console.log("Sending message:", text, "from User:", user._id);
+
 
         // Emit message to server
         // Server should handle saving to DB and broadcasting to admin

@@ -5,7 +5,7 @@
 export const applyTheme = (theme) => {
   if (typeof window !== 'undefined' && theme) {
     const root = document.documentElement;
-    console.log('Applying Theme:', theme); // Debug log
+    // console.log('Applying Theme:', theme);
 
     // Merge with defaults to ensure all sections exist
     const defaults = {

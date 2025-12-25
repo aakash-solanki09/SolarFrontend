@@ -25,7 +25,7 @@ const AdminChat = () => {
         socket.emit('join', 'admin');
 
         socket.on('message', (message) => {
-            console.log('Admin received message:', message);
+
 
             // 1. Update messages if this conversation is active
             if (activeChatUser && (message.sender === activeChatUser._id || message.receiver === activeChatUser._id)) {
