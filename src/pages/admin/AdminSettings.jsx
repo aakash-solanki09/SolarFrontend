@@ -483,7 +483,7 @@ export default function AdminSettings() {
                                     {formData.leadership.map((leader, index) => (
                                         <div key={index} className="flex flex-col md:flex-row gap-6 p-4 bg-gray-50 rounded-xl border border-gray-100 relative group">
                                             {/* Photo Upload */}
-                                            <div className="flex-shrink-0">
+                                            <div className="flex-shrink-0 relative group/image">
                                                 <div className="relative w-24 h-24 bg-white rounded-full border-2 border-gray-200 overflow-hidden shadow-sm">
                                                     {leader.image ? (
                                                         <img src={leader.image} alt={leader.name} className="w-full h-full object-cover" />
@@ -499,6 +499,27 @@ export default function AdminSettings() {
                                                         onChange={(e) => handleLeadershipFileChange(index, e.target.files?.[0])}
                                                     />
                                                 </div>
+                                                {leader.image && (
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation(); // Prevent ensuring it doesn't trigger file input if overlaying
+                                                            // Logic to remove image
+                                                            const updated = [...formData.leadership];
+                                                            updated[index].image = '';
+                                                            setFormData({ ...formData, leadership: updated });
+                                                            
+                                                            // Clear file input
+                                                            const newLeaderImages = { ...fileInputs.leaderImages };
+                                                            delete newLeaderImages[index];
+                                                            setFileInputs(prev => ({ ...prev, leaderImages: newLeaderImages }));
+                                                        }}
+                                                        className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-1 shadow-md hover:bg-red-600 transition-colors z-10"
+                                                        title="Remove Image"
+                                                        type="button"
+                                                    >
+                                                        <Trash2 className="w-3 h-3" />
+                                                    </button>
+                                                )}
                                                 <p className="text-center text-[10px] text-gray-400 mt-1">Click to Upload</p>
                                             </div>
 
