@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     const signup = async (userData) => {
         const res = await api.post('/api/auth/signup', userData);
-        setUser(res.data.user);
+        // User must login manually after signup
         return res.data;
     };
 

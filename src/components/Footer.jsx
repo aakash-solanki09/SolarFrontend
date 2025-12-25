@@ -20,8 +20,15 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
                         <div className="flex items-center mb-4">
-                            <Sun className="h-8 w-8 text-solar-500" />
-                            <span className="ml-2 text-xl font-bold">{name}</span>
+                             {/* Primary Logo retrieval */}
+                             {siteConfig?.appLogo?.secondary ? (
+                                <img src={siteConfig.appLogo.secondary} alt={name} className="h-10 w-auto" />
+                             ) : (
+                                <>
+                                    <Sun className="h-8 w-8 text-solar-500" />
+                                    <span className="ml-2 text-xl font-bold">{name}</span>
+                                </>
+                             )}
                         </div>
                         <p className="text-sm" style={{ opacity: 0.8 }}>
                             {tagline}
@@ -54,18 +61,64 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h3 className="text-lg font-semibold mb-4">Newsletter</h3>
-                        <div className="flex">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="bg-white/10 placeholder-white/50 px-4 py-2 rounded-l-md focus:outline-none focus:ring-1 focus:ring-solar-500 w-full"
-                                style={{ color: 'inherit' }}
-                            />
-                            <button className="bg-solar-500 text-white px-4 py-2 rounded-r-md hover:bg-solar-600 transition-colors">
-                                Subscribe
-                            </button>
+                        <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+                        <p className="text-sm mb-4" style={{ opacity: 0.8 }}>Follow us on social media for updates.</p>
+                        
+                        <div className="flex space-x-4 mb-6">
+                            {/* Instagram */}
+                            {siteConfig?.socialLinks?.instagram && (
+                                <a 
+                                    href={siteConfig.socialLinks.instagram} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="bg-white/10 hover:bg-solar-500 hover:text-white p-2 rounded-full transition-all duration-300"
+                                    title="Instagram"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                </a>
+                            )}
+                            
+                            {/* Facebook */}
+                            {siteConfig?.socialLinks?.facebook && (
+                                <a 
+                                    href={siteConfig.socialLinks.facebook} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="bg-white/10 hover:bg-solar-500 hover:text-white p-2 rounded-full transition-all duration-300"
+                                    title="Facebook"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                                </a>
+                            )}
+                            
+                            {/* Twitter / X */}
+                            {siteConfig?.socialLinks?.twitter && (
+                                <a 
+                                    href={siteConfig.socialLinks.twitter} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="bg-white/10 hover:bg-solar-500 hover:text-white p-2 rounded-full transition-all duration-300"
+                                    title="Twitter"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                                </a>
+                            )}
                         </div>
+
+                        {/* Dynamic Logo from Admin */}
+                        {siteConfig?.appLogo?.secondary ? (
+                             <img 
+                                src={siteConfig.appLogo.secondary} 
+                                alt={name} 
+                                className="h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" 
+                              />
+                        ) : (
+                            // Fallback if no logo
+                            <div className="flex items-center text-solar-500">
+                                <Sun className="h-8 w-8" />
+                                <span className="ml-2 font-bold text-white">{name}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
 

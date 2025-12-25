@@ -21,7 +21,7 @@ const ProductCard = ({ product, onInterest, onChat }) => {
         <div className="bg-card text-card-foreground rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" style={{ backgroundColor: 'var(--card-bg)', color: 'var(--card-text)' }}>
             <div className="h-48 overflow-hidden relative group">
                 <img
-                    src={(product.images && product.images.length > 0 ? product.images[0] : product.image) || "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"}
+                    src={(product.images && product.images.length > 0 ? product.images[0] : product.image) || "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=95"}
                     alt={product.name}
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
                 />

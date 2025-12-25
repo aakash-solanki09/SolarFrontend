@@ -1,24 +1,44 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSiteConfig } from '../context/SiteConfigContext';
 import { Sun } from 'lucide-react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const { login } = useAuth();
+    const { siteConfig } = useSiteConfig();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.message) {
+            setMessage(location.state.message);
+            // Clear state so refresh doesn't show it again (optional, simplified here)
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setMessage('');
         try {
             const data = await login(email, password);
             if (data.user.role === 'admin') {
                 navigate('/admin/dashboard');
             } else {
-                navigate('/dashboard');
+                // If user hasn't seen the tour, go to Home to allow it to trigger
+                // We skip checking siteConfig here to avoid race conditions (undefined config)
+                const hasSeenTour = localStorage.getItem('solar_app_tour_seen');
+                if (!hasSeenTour) {
+                    navigate('/');
+                } else {
+                    navigate('/');
+                }
             }
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to login');
@@ -44,6 +64,15 @@ const Login = () => {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    {message && (
+                        <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                            <div className="flex">
+                                <div className="ml-3">
+                                    <p className="text-sm text-green-700">{message}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {error && (
                         <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
                             <div className="flex">

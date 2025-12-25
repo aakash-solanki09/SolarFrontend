@@ -3,11 +3,14 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
+import WebsiteTour from '../components/common/WebsiteTour';
+
 const MainLayout = () => {
     useScrollAnimation();
 
     return (
         <div className="flex flex-col min-h-screen bg-body text-body-foreground" style={{ backgroundColor: 'var(--body-bg)', color: 'var(--body-text)' }}>
+            <WebsiteTour />
             <Navbar />
             <main className="flex-grow">
                 <Outlet />

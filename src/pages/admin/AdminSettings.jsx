@@ -3,7 +3,7 @@ import { useSiteConfig } from '../../context/SiteConfigContext';
 import { applyTheme } from '../../utils/themeUtils';
 import ThemeCustomizer from '../../components/admin/ThemeCustomizer';
 import ColorInput from '../../components/admin/ColorInput';
-import { Save, UploadCloud, RefreshCw, Smartphone, Monitor, Moon, Sun, Type, Palette, ImageIcon, LayoutTemplate, Loader2, RotateCcw, Users, Plus, Trash2 } from 'lucide-react';
+import { Save, UploadCloud, RefreshCw, Smartphone, Monitor, Moon, Sun, Type, Palette, ImageIcon, LayoutTemplate, Loader2, RotateCcw, Users, Plus, Trash2, Sparkles, Navigation } from 'lucide-react';
 
 export default function AdminSettings() {
   const { siteConfig, updateSiteConfig, resetSiteConfig, loading: configLoading } = useSiteConfig();
@@ -31,7 +31,17 @@ export default function AdminSettings() {
         foundedYear: '',
         tagline: ''
      },
-     leadership: []
+     socialLinks: {
+        instagram: '',
+        facebook: '',
+        twitter: ''
+     },
+     leadership: [],
+     userExperience: {
+        tourEnabled: true,
+        animationsEnabled: true,
+        welcomeMessage: ''
+     }
   });
   const [fileInputs, setFileInputs] = useState({ primary: null, secondary: null, favicon: null, heroImage: null, sliderImages: null, contactImage: null, productPageImage: null, leaderImages: {} });
   const [saving, setSaving] = useState(false);
@@ -42,14 +52,15 @@ export default function AdminSettings() {
       setFormData({
         appName: siteConfig.appName || '',
         appLogo: siteConfig.appLogo || { primary: '', secondary: '', favicon: '' },
-        appLogo: siteConfig.appLogo || { primary: '', secondary: '', favicon: '' },
         heroImage: siteConfig.heroImage || '',
         sliderImages: siteConfig.sliderImages || [],
         contactImage: siteConfig.contactImage || '',
         productPageImage: siteConfig.productPageImage || '',
         heroText: siteConfig.heroText || { topText: '', headline: '', description: '' },
         companyDetails: siteConfig.companyDetails || { name: '', address: '', phone: '', email: '', foundedYear: '', tagline: '' },
+        socialLinks: siteConfig.socialLinks || { instagram: '', facebook: '', twitter: '' },
         leadership: siteConfig.leadership || [],
+        userExperience: siteConfig.userExperience || { tourEnabled: true, animationsEnabled: true, welcomeMessage: '' },
         appTheme: {
             ...formData.appTheme,
             ...siteConfig.appTheme,
@@ -178,6 +189,8 @@ export default function AdminSettings() {
     data.append('heroText', JSON.stringify(formData.heroText));
     data.append('companyDetails', JSON.stringify(formData.companyDetails));
     data.append('leadership', JSON.stringify(formData.leadership));
+    data.append('userExperience', JSON.stringify(formData.userExperience));
+    data.append('socialLinks', JSON.stringify(formData.socialLinks));
 
     if (fileInputs.primary) data.append('primaryLogo', fileInputs.primary);
     if (fileInputs.secondary) data.append('secondaryLogo', fileInputs.secondary);
@@ -230,6 +243,7 @@ export default function AdminSettings() {
   const tabs = [
     { id: 'general', label: 'General Settings', icon: Smartphone, desc: 'App Name & Logos' },
     { id: 'company', label: 'Company & Team', icon: Users, desc: 'Contact & Leadership' },
+    { id: 'ux', label: 'User Experience', icon: Sparkles, desc: 'Tour & Animations' },
     { id: 'home', label: 'Home Page', icon: Monitor, desc: 'Hero Image, Slider & Text' },
     { id: 'banners', label: 'Page Banners', icon: ImageIcon, desc: 'Contact & Products' },
     { id: 'theme', label: 'Color Theme', icon: Palette, desc: 'Global Colors' },
@@ -393,6 +407,73 @@ export default function AdminSettings() {
                     </section>
                 </div>
             )}
+            
+            {/* User Experience Tab */}
+            {activeTab === 'ux' && (
+                <div className="space-y-6 animate-fade-in-up">
+                    <section className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        <div className="p-6 border-b border-gray-100">
+                             <h2 className="text-lg font-semibold text-gray-900">User Onboarding & Experience</h2>
+                             <p className="text-sm text-gray-500 mt-1">Configure automated tours and visual effects.</p>
+                        </div>
+                        <div className="p-6 space-y-8">
+                            {/* Tour Settings */}
+                            <div className="flex flex-col md:flex-row gap-6 md:gap-12">
+                                <div className="flex-1 space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h3 className="font-medium text-gray-900">Website Tour</h3>
+                                            <p className="text-sm text-gray-500">Show a guided tour for new visitors.</p>
+                                        </div>
+                                        <label className="relative inline-flex items-center cursor-pointer">
+                                            <input 
+                                                type="checkbox" 
+                                                checked={formData.userExperience?.tourEnabled} 
+                                                onChange={(e) => setFormData({ ...formData, userExperience: { ...formData.userExperience, tourEnabled: e.target.checked } })}
+                                                className="sr-only peer" 
+                                            />
+                                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        </label>
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1.5 text-gray-700">Welcome Message</label>
+                                        <textarea
+                                            value={formData.userExperience?.welcomeMessage}
+                                            onChange={(e) => setFormData({ ...formData, userExperience: { ...formData.userExperience, welcomeMessage: e.target.value } })}
+                                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none h-20 resize-none"
+                                            placeholder="Welcome to our platform! Let us show you around."
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Animation Settings */}
+                                <div className="flex-1 space-y-4 border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-12">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h3 className="font-medium text-gray-900">High-End Animations</h3>
+                                            <p className="text-sm text-gray-500">Enable premium scroll and entry animations.</p>
+                                        </div>
+                                        <label className="relative inline-flex items-center cursor-pointer">
+                                            <input 
+                                                type="checkbox" 
+                                                checked={formData.userExperience?.animationsEnabled} 
+                                                onChange={(e) => setFormData({ ...formData, userExperience: { ...formData.userExperience, animationsEnabled: e.target.checked } })}
+                                                className="sr-only peer" 
+                                            />
+                                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        </label>
+                                    </div>
+                                    <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-700">
+                                        <Sparkles className="w-4 h-4 inline mr-2 mb-0.5" />
+                                        Disabling this will revert to a static layout for better performance on very old devices.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            )}
 
             {/* Company & Team Tab */}
             {activeTab === 'company' && (
@@ -455,6 +536,46 @@ export default function AdminSettings() {
                                     type="text"
                                     value={formData.companyDetails.foundedYear}
                                     onChange={(e) => setFormData({ ...formData, companyDetails: { ...formData.companyDetails, foundedYear: e.target.value } })}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                                />
+                            </div>
+                        </div>
+                    </section>
+                    
+                    {/* Social Media Links */}
+                    <section className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                        <div className="p-6 border-b border-gray-100">
+                            <h2 className="text-lg font-semibold text-gray-900">Social Media Links</h2>
+                            <p className="text-sm text-gray-500 mt-1">Add links to your social media profiles.</p>
+                        </div>
+                        <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label className="block text-sm font-medium mb-1.5 text-gray-700">Instagram URL</label>
+                                <input
+                                    type="text"
+                                    placeholder="https://instagram.com/..."
+                                    value={formData.socialLinks?.instagram || ''}
+                                    onChange={(e) => setFormData({ ...formData, socialLinks: { ...formData.socialLinks, instagram: e.target.value } })}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-1.5 text-gray-700">Facebook URL</label>
+                                <input
+                                    type="text"
+                                    placeholder="https://facebook.com/..."
+                                    value={formData.socialLinks?.facebook || ''}
+                                    onChange={(e) => setFormData({ ...formData, socialLinks: { ...formData.socialLinks, facebook: e.target.value } })}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-1.5 text-gray-700">Twitter / X URL</label>
+                                <input
+                                    type="text"
+                                    placeholder="https://twitter.com/..."
+                                    value={formData.socialLinks?.twitter || ''}
+                                    onChange={(e) => setFormData({ ...formData, socialLinks: { ...formData.socialLinks, twitter: e.target.value } })}
                                     className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                                 />
                             </div>

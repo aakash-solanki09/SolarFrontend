@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useSiteConfig } from '../context/SiteConfigContext';
-import { Menu, X, Sun, User, LogOut } from 'lucide-react';
+import { Menu, X, Sun, User, LogOut, Sparkles } from 'lucide-react';
 
 const Navbar = () => {
     const { user, logout, isAuthenticated, isAdmin } = useAuth();
@@ -51,30 +51,39 @@ const Navbar = () => {
                 <div className="flex justify-between h-20 items-center">
                     <div className="flex items-center">
                         <Link to="/" className="flex-shrink-0 flex items-center group">
-                            {siteConfig?.appLogo?.primary ? (
-                                <img src={siteConfig.appLogo.primary} alt={siteConfig.appName} className="h-12 w-auto" />
-                            ) : (
-                                <>
-                                    <div className="relative">
+                            <div className="flex items-center">
+                                {siteConfig?.appLogo?.primary ? (
+                                    <img src={siteConfig.appLogo.primary} alt={siteConfig.appName} className="h-12 w-auto mr-3" />
+                                ) : (
+                                    <div className="relative mr-3">
                                         <Sun className="h-9 w-9 text-solar-500 transform transition-transform duration-700 group-hover:rotate-180" />
                                         <div className="absolute inset-0 bg-solar-400 blur-lg opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
                                     </div>
-                                    <span className="ml-3 text-xl font-extrabold text-header-foreground tracking-tight">
-                                        {siteConfig?.appName || 'Vishwamangal Solar'}
-                                    </span>
-                                </>
-                            )}
+                                )}
+                                <span className="text-xl font-extrabold text-header-foreground tracking-tight">
+                                    {siteConfig?.appName || 'Vishwamangal Solar'}
+                                </span>
+                            </div>
                         </Link>
                     </div>
 
                     <div className="hidden md:flex items-center space-x-6">
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/products">Products</NavLink>
-                        <NavLink to="/about">About</NavLink>
+                        <NavLink to="/about">About Us</NavLink>
                         <NavLink to="/contact">Contact</NavLink>
-                        {isAuthenticated && !isAdmin && (
-                            <NavLink to="/chat">Chat With Admin</NavLink>
-                        )}
+
+                        <button
+                            id="tour-reset-btn"
+                            onClick={() => {
+                                localStorage.removeItem('solar_app_tour_seen');
+                                window.location.href = '/';
+                            }}
+                            className="p-2 text-gray-500 hover:text-solar-600 hover:bg-solar-50 rounded-full transition-all duration-300 ml-2"
+                            title="Reset Tour (Test)"
+                        >
+                            <Sparkles className="h-5 w-5" />
+                        </button>
 
                         {isAuthenticated ? (
                             <div className="flex items-center space-x-4 ml-4">
@@ -94,9 +103,12 @@ const Navbar = () => {
                                 </button>
                             </div>
                         ) : (
-                            <div className="flex items-center space-x-3 ml-4 text-black">
-                                <Link to="/login" className="text-black hover:text-solar-600 font-medium px-4 py-2 transition-colors">Login</Link>
-                                <Link to="/signup" className="bg-gradient-to-r from-solar-500 to-solar-600 text-black px-5 py-2.5 rounded-full font-bold shadow-lg hover:shadow-xl hover:from-solar-600 hover:to-solar-700 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center">
+                            <div className="flex items-center space-x-3 ml-4">
+                                <NavLink to="/login">Login</NavLink>
+                                <Link 
+                                    to="/signup" 
+                                    className="btn-dynamic px-5 py-2.5 rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 flex items-center"
+                                >
                                     Get Started
                                 </Link>
                             </div>
@@ -118,7 +130,7 @@ const Navbar = () => {
             {isOpen && (
                 <div className="md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
                     <div className="px-4 pt-2 pb-4 space-y-1">
-                        {['/', '/products', '/about', '/contact', ...(isAuthenticated && !isAdmin ? ['/chat'] : [])].map((path) => (
+                        {['/', '/products', '/about', '/contact'].map((path) => (
                             <Link 
                                 key={path}
                                 to={path} 
@@ -129,7 +141,7 @@ const Navbar = () => {
                                 }`}
                                 onClick={() => setIsOpen(false)}
                             >
-                                {path === '/' ? 'Home' : path === '/chat' ? 'Chat With Admin' : path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
+                                {path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
                             </Link>
                         ))}
                         

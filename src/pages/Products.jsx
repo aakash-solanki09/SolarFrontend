@@ -70,7 +70,7 @@ const Products = () => {
     };
 
     return (
-        <div className="bg-body min-h-screen py-12">
+        <div className="bg-body min-h-screen">
             <SEO 
                 title="Our Products" 
                 description="Explore our range of high-efficiency solar panels and inverters. Find the perfect solar solution for your needs."

@@ -41,7 +41,7 @@ const Signup = () => {
 
         try {
             await signup(formData);
-            navigate('/dashboard');
+            navigate('/login', { state: { message: 'Account created successfully! Please login.' } });
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to create account');
         }
